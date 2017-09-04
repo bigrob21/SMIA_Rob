@@ -1,0 +1,14 @@
+version: '3'
+services: 
+  licensing-service:
+    container_name: licensing-service
+    restart: unless-stopped
+    image: licensing-service:1.0
+    ports: 
+      - 8000:8000
+    build:
+      context: ./licensing-service
+      dockerfile: ./Dockerfile
+
+##network: 
+##  mid-tier
