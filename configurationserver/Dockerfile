@@ -20,4 +20,4 @@ ENV JAVA_OPTS="-Xms300m -Xmx300m"
 COPY --from=init /opt/app/target/configurationserver.jar ${WORKDIR}
 
 ENTRYPOINT exec java -jar ${JAVA_OPTS} configurationserver.jar
-EXPOSE 8000
+EXPOSE 8888

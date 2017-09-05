@@ -9,6 +9,15 @@ services:
     build:
       context: ./licensing-service
       dockerfile: ./Dockerfile
+  configurationserver:
+    container_name: config-server
+    restart: unless-stopped
+    image: configurationserver:1.0
+    ports: 
+      - 8888:8888
+    build:
+      context: ./configurationserver
+      dockerfile: ./Dockerfile
 
 ##network: 
 ##  mid-tier
