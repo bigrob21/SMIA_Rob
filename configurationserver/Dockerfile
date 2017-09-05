@@ -19,5 +19,5 @@ WORKDIR /opt
 ENV JAVA_OPTS="-Xms300m -Xmx300m"
 COPY --from=init /opt/app/target/configurationserver.jar ${WORKDIR}
 
-ENTRYPOINT exec java -jar ${JAVA_OPTS} licensing-service.jar
+ENTRYPOINT exec java -jar ${JAVA_OPTS} configurationserver.jar
 EXPOSE 8000
