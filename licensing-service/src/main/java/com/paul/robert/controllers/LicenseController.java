@@ -15,9 +15,9 @@ public class LicenseController {
 	public License getLicenses(@PathVariable("licenseId") String organizationId, 
 							   @PathVariable("organizationId") String licenseId){
 		return License.builder()
-		.id(licenseId)
+		.licenseId(licenseId)
 		.productName("Teleco")
-		.LicenseType("Seat")
+		.licenseType("Seat")
 		.organizationId(organizationId)
 		.build();
 	}
