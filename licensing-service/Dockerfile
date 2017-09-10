@@ -1,12 +1,12 @@
 FROM maven:3.5-jdk-8 AS init
 
 RUN mkdir /opt/app
-VOLUME ["/root/home:../.m2/repository"]
+VOLUME ["/root/home:.m2/repository"]
 WORKDIR /opt/app
-COPY src src
-COPY pom.xml .
+COPY ./licensing-service/src src
+COPY ./licensing-service/pom.xml .
 COPY settings.xml .
-RUN mvn clean package -DskipTests -s settings.xml -q
+RUN mvn clean package -DskipTests -s ./settings.xml -q
 
 ## ENDING MAVEN BUILD NOT THE PACKAGING OF THE APP ITSELF
 

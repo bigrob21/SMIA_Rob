@@ -1,23 +1,31 @@
-version: '3'
+version: "3.0"
 services: 
   licensing-service:
     container_name: licensing-service
     restart: unless-stopped
     image: licensing-service:1.0
+    volumes:
+      - /root/home:.m2/repository
+    networks:
+      - mid-tier
     ports: 
       - 8000:8000
     build:
-      context: ./licensing-service
-      dockerfile: ./Dockerfile
+      context: .
+      dockerfile: licensing-service/Dockerfile
   configurationserver:
     container_name: config-server
     restart: unless-stopped
     image: configurationserver:1.0
+    networks:
+      - mid-tier
     ports: 
       - 8888:8888
     build:
       context: ./configurationserver
       dockerfile: ./Dockerfile
 
-##network: 
-##  mid-tier
+networks:
+  mid-tier:
+    driver: bridge
+  
