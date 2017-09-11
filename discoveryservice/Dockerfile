@@ -1,12 +1,12 @@
 FROM maven:3.5-jdk-8 AS init
 
 RUN mkdir /opt/app
-VOLUME ["/root/home:../.m2/repository"]
+VOLUME ["/root/home:.m2/repository"]
 WORKDIR /opt/app
-COPY ./configurationserver/src src
-COPY ./configurationserver/pom.xml .
+COPY ./discoveryservice/src src
+COPY ./discoveryservice/pom.xml .
 COPY settings.xml .
-RUN mvn clean package -DskipTests -s settings.xml -q
+RUN mvn clean install -DskipTests -s settings.xml -q
 
 ## ENDING MAVEN BUILD NOT THE PACKAGING OF THE APP ITSELF
 
@@ -17,7 +17,7 @@ LABEL description="Second docker build will actual set up the app, but will retr
 WORKDIR /opt
 
 ENV JAVA_OPTS="-Xms300m -Xmx300m"
-COPY --from=init /opt/app/target/configurationserver.jar ${WORKDIR}
+COPY --from=init /opt/app/target/discoveryservice.jar ${WORKDIR}
 
-ENTRYPOINT exec java -jar ${JAVA_OPTS} configurationserver.jar
-EXPOSE 8888
+ENTRYPOINT exec java -jar ${JAVA_OPTS} discoveryservice.jar
+EXPOSE 10000 8781

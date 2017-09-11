@@ -4,8 +4,6 @@ services:
     container_name: licensing-service
     restart: unless-stopped
     image: licensing-service:1.0
-    volumes:
-      - /root/home:.m2/repository
     networks:
       - mid-tier
     ports: 
@@ -13,19 +11,31 @@ services:
     build:
       context: .
       dockerfile: licensing-service/Dockerfile
-  configurationserver:
-    container_name: config-server
+#  configurationserver:
+#    container_name: config-server
+#    restart: unless-stopped
+#    image: configurationserver:1.0
+#    networks:
+#      - mid-tier
+#    ports: 
+#      - 8888:8888
+#    build:
+#      context: ./configurationserver
+#      dockerfile: ./Dockerfile
+  discovery-service:
+    container_name: discovery-service
     restart: unless-stopped
-    image: configurationserver:1.0
+    image: discoveryservice:1.0
     networks:
       - mid-tier
     ports: 
-      - 8888:8888
+      - 10000:10000
+      - 8761:8761
     build:
-      context: ./configurationserver
-      dockerfile: ./Dockerfile
+      context: .
+      dockerfile: discoveryservice/Dockerfile
 
 networks:
   mid-tier:
     driver: bridge
-  
+ 
